@@ -1,11 +1,9 @@
-from typing import Union
 
 import numpy
 import pandas
 from numba import types, prange
 
 from sdc.hiframes.pd_series_type import SeriesType
-from sdc.utilities.sdc_typing_utils import TypeChecker
 from sdc.utilities.utils import sdc_overload_method
 from numba.core.registry import cpu_target
 

@@ -3,28 +3,33 @@ from numba import njit
 
 
 @njit
-def series_apply():
-    s = pd.Series([20.12, 21.2, 12.3],
-                  index=['London', 'New York', 'Helsinki'])
-
-    def square(x, *args):
-        return x ** 2
-
-    return s.transform(square)
-
-
-@njit
-def series_apply_arguments():
+def series_transform():
     s = pd.Series([20, 21, 12],
                   index=['London', 'New York', 'Helsinki'])
 
-    def sum(x, *args):
-        for i in args:
-            x += i
-        return x
+    def sum(x):
+        return x + 1
 
-    return s.transform(sum, 1, 2, 3, 4)
+    return s.transform(sum)
 
 
-print(series_apply())
-print(series_apply_arguments())
+@njit
+def sum(x):
+    return x + 1
+
+
+@njit
+def square(x):
+    return x ** 2
+
+
+@njit
+def series_transform_tuple():
+    s = pd.Series([20, 21, 12],
+                  index=['London', 'New York', 'Helsinki'])
+    func = (sum, square)
+    return s.transform(func, 1, 2)
+
+
+print(series_transform())
+print(series_transform_tuple())
